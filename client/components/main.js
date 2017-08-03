@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
-
+import Places from '../components/Places'
 /**
  * COMPONENT
  *  The Main component is our 'picture frame' - it displays the navbar and anything
@@ -15,7 +15,7 @@ const Main = (props) => {
 
   return (
     <div>
-      <h1>BOILERMAKER</h1>
+      <h1>RESGIFY</h1>
       <nav>
         {
           isLoggedIn
@@ -32,7 +32,7 @@ const Main = (props) => {
         }
       </nav>
       <hr />
-      {children}
+      <Places />
     </div>
   )
 }
