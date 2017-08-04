@@ -8,9 +8,9 @@ export default class Places extends Component {
   constructor (props) {
     super(props);
     this.state = {
-        location:[], 
-        locationInput:'',
-        foodInput:''
+        location: [], 
+        locationInput: '',
+        foodInput: ''
     }
 this.getLocation = this.getLocation.bind(this);
 this.showPosition = this.showPosition.bind(this);
@@ -18,6 +18,9 @@ this.handleChange = this.handleChange.bind(this);
 this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+// componentDidMount(){
+//      this.setState({location});
+// }
 
 handleClick(event){
     event.preventDefault();
@@ -46,6 +49,7 @@ handleSubmit(event){
     this.setState({
         [name]: ''
     })
+    
 }
 
 getLocation() {
@@ -58,9 +62,8 @@ getLocation() {
 }
 
 showPosition (position) {
-    console.log('in show ', position)
-    let location = <p> {position.coords.latitude + ',' + position.coords.longitude} </p>
-    this.setState({location});
+    let location =  position.coords.latitude + ',' + position.coords.longitude
+    //  console.log('in show ', location)
     }
 
 
@@ -69,12 +72,14 @@ showPosition (position) {
       const locationInput = this.state.locationInput;
       const foodInput = this.state.foodInput;
 
-      console.log(this.state)
+      console.log("STATE NOW", this.state);
 
     return (
         <div>
         <span> Where are you? </span>
+          <Link to={`/places/${this.state.location}`}>
         <button onClick={this.getLocation}>Get Location!</button>
+        </Link>
        
             <h3>Locations</h3>
             {location}
@@ -85,12 +90,15 @@ showPosition (position) {
           <form name='locationInput' onSubmit={this.handleSubmit}>
         <label>
           Name:
-          <input name='locationInput'
+          <input 
+          name='locationInput'
           placeholder='Zip Code, City' 
            type="text" value={locationInput} 
            onChange={this.handleChange} />
         </label>
-        <input name='locationInput' type="submit" value="Submit" />
+        <Link to={`/places/${this.state.locationInput}`}>
+        <input  name='locationInput' type="submit" value="Submit" />
+        </Link>
       </form>
 
        <p> What do you want to eat? </p>
@@ -98,13 +106,16 @@ showPosition (position) {
          <form name='foodInput' onSubmit={this.handleSubmit}>
         <label>
           Name:
-          <input name='foodInput' 
+          <input 
+          name='foodInput' 
           placeholder='Burger, Pizza, Indian' 
           type="text" 
-          value={locationInput} 
+          value={foodInput} 
           onChange={this.handleChange} />
         </label>
+        <Link to={`/food/${this.state.foodInput}`}>
         <input name='foodInput' type="submit" value="Submit" />
+        </Link>
       </form>
 
         </div>

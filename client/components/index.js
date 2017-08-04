@@ -6,4 +6,6 @@
 export {default as Main} from './main'
 export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
-export {Places} from './Places'
+export {default as Search} from './Search'
+export {default as SearchResults} from './SearchResults'
+export {default as Home} from './Home';
