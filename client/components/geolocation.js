@@ -10,33 +10,31 @@ const GET_LOCATION = 'GET_LOCATION'
 /**
  * INITIAL STATE
  */
-const defaultRests = {
-    location:[]
+const defaultLocation = {
+    location:''
 }
 
 /**
  * ACTION CREATORS
  */
-const getLocation = location => ({type: GET_RESTS, location})
+const getLocation = location => ({type: GET_LOCATION, location})
 
 
 /**
  * THUNK CREATORS
  */
-export const fetchLocation = (location) =>
-  dispatch =>
-    axios.get(`/api/yelp/ownLocation/${location}`)
-      .then(res =>
-        dispatch(getRestsOwn(res.data || defaultRests)))
-      .catch(err => console.log(err))
+export const fetchLocation = ((location) =>
+  dispatch => 
+    getLocation(){
+        console.log('in get location', navigator)
+    if(navigator && navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(this.showPosition); //add error handling
+            } else {
+                console.log('Geolocation is not supported');
+            }
+    }
 
-
-export const fetchRests = () =>
-  dispatch =>
-    axios.get('/api/yelp/getLocation')
-      .then(res =>
-        dispatch(getRests(res.data || defaultRests)))
-      .catch(err => console.log(err))
+)
 
 /**
 /**
@@ -44,12 +42,8 @@ export const fetchRests = () =>
  */
 export default function (state = defaultRests, action) {
   switch (action.type) {
-    case GET_RESTS:
+    case GET_LOCATION:
       return Object.assign({}, state, {listOfPlaces: action.places} );
-
-    case GET_RESTS_OWN:
-      return Object.assign({}, state, {listOfPlaces: action.places} );
-  
     default:
       return state
   }

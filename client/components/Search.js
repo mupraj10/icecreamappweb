@@ -52,14 +52,6 @@ handleSubmit(event){
     
 }
 
-getLocation() {
-    console.log('in get location', navigator)
- if (navigator && navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(this.showPosition); //add error handling
-        } else {
-            console.log('Geolocation is not supported');
-        }
-}
 
 showPosition (position) {
     let location =  position.coords.latitude + ',' + position.coords.longitude
