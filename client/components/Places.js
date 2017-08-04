@@ -15,6 +15,7 @@ export default class Places extends Component {
 this.getLocation = this.getLocation.bind(this);
 this.showPosition = this.showPosition.bind(this);
 this.handleChange = this.handleChange.bind(this);
+this.handleSubmit = this.handleSubmit.bind(this);
   }
 
 
@@ -28,7 +29,23 @@ handleClick(event){
 
 handleChange(event){
       event.preventDefault();
-      console.log(event.target.value);
+      const target = event.target;
+      const value = target.value
+      const name = target.name;
+      console.log('in handle change')
+      this.setState({
+          [name]:value
+      })
+}
+
+handleSubmit(event){
+    console.log('in handle submit')
+      const target = event.target;
+      const name = target.name;
+    event.preventDefault();
+    this.setState({
+        [name]: ''
+    })
 }
 
 getLocation() {
@@ -49,18 +66,46 @@ showPosition (position) {
 
   render() {
       const location = this.state.location;
+      const locationInput = this.state.locationInput;
+      const foodInput = this.state.foodInput;
+
+      console.log(this.state)
+
     return (
         <div>
         <span> Where are you? </span>
         <button onClick={this.getLocation}>Get Location!</button>
-        <p> Tell Us Where You Want To Search </p>
-        <input name='locationInput'defaultValue="Zip Code, City, State" onChange={this.handleChange} />
-        <button> Click me! </button>
-        <p> What do you want to eat? </p>
-        <input name='foodInput' defaultValue="Burgers, Milkshake, French Fries" onChange={this.handleChange} />
-         <button> Click me! </button>
+       
             <h3>Locations</h3>
             {location}
+            <h1>{locationInput}</h1>
+            <h1>{foodInput}</h1>
+
+ <p> Tell Us Where You Want To Search </p>
+          <form name='locationInput' onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input name='locationInput'
+          placeholder='Zip Code, City' 
+           type="text" value={locationInput} 
+           onChange={this.handleChange} />
+        </label>
+        <input name='locationInput' type="submit" value="Submit" />
+      </form>
+
+       <p> What do you want to eat? </p>
+
+         <form name='foodInput' onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input name='foodInput' 
+          placeholder='Burger, Pizza, Indian' 
+          type="text" 
+          value={locationInput} 
+          onChange={this.handleChange} />
+        </label>
+        <input name='foodInput' type="submit" value="Submit" />
+      </form>
 
         </div>
     )
